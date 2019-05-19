@@ -1,0 +1,19 @@
+[oa2fx][INFO][2019-05-19 08:44:49,537] starting application on windows - 10
+[urllib3.poolmanager][INFO][2019-05-19 08:44:53,104] Redirecting http://127.0.0.1:50657/session -> http://127.0.0.1:50657/session/168ccda8-24e8-4cc2-9e36-1b14006897fc
+[oa2fx][INFO][2019-05-19 08:44:53,117] application root folder would be C:\src\id-client\src
+[oa2fx][INFO][2019-05-19 08:44:53,117] application will use pwin64 for native invocations
+[oa2fx][INFO][2019-05-19 08:44:53,117] loading config.json
+[oa2fx][INFO][2019-05-19 08:44:53,118] configuration is {'urls': {'oauth1': {'requestToken': 'https://accounts{0}.autodesk.com/oauth/requesttoken', 'authorize': 'https://accounts{0}.autodesk.com/oauth/authorize', 'accessToken': 'https://accounts{0}.autodesk.com/oauth/accesstoken'}, 'oauth2': {'authorize': 'https://developer{0}.api.autodesk.com/authentication/v1/authorize', 'getToken': 'https://developer{0}.api.autodesk.com/authentication/v1/gettoken'}}}
+[oa2fx][INFO][2019-05-19 08:44:53,118] commandline args ['oa2fx.py', '-key:55rtufWFMxLSZYDP2850D0mqBsOMVg54', '-secret:4ad5SatSeAjfA2GB', '-callback:https://accounts.autodesk.com', '-environ:prd', '-temp:test.txt']
+[oa2fx][INFO][2019-05-19 08:44:53,118] setting command line options
+[oa2fx][INFO][2019-05-19 08:44:53,118] environ = prd, auth = oauth2, clientKey = 55rtufWFMxLSZYDP2850D0mqBsOMVg54, clientSecret = 4ad5SatSeAjfA2GB, callback = https, realm = 
+[oa2fx][INFO][2019-05-19 08:44:53,118] configured environment is prd
+[oa2fx][INFO][2019-05-19 08:44:53,118] oauth1 request token url is https://accounts.autodesk.com/oauth/requesttoken
+[oa2fx][INFO][2019-05-19 08:44:53,118] oauth1 authorize url is https://accounts.autodesk.com/oauth/authorize
+[oa2fx][INFO][2019-05-19 08:44:53,118] oauth1 access token url is https://accounts.autodesk.com/oauth/accesstoken
+[oa2fx][INFO][2019-05-19 08:44:53,118] oauth2 authorize url is https://developer.api.autodesk.com/authentication/v1/authorize
+[oa2fx][INFO][2019-05-19 08:44:53,118] oauth2 get token url is https://developer.api.autodesk.com/authentication/v1/gettoken
+[oa2fx][INFO][2019-05-19 08:44:53,118] oauth2 callback url is https://accounts.autodesk.com/Health
+[oa2fx][INFO][2019-05-19 08:44:53,119] authorization url is https://developer.api.autodesk.com/authentication/v1/authorize?response_type=code&client_id=55rtufWFMxLSZYDP2850D0mqBsOMVg54&redirect_uri=https%3A%2F%2Faccounts.autodesk.com%2FHealth&state=QmiFBnx9W2BkXELo144HhTJzrUqAMH
+[oa2fx][INFO][2019-05-19 08:45:11,885] oauth2 get token response - {"access_token":"eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJ1c2VyaWQiOiJBMzJMUlJFR0dRNlkiLCJleHAiOjE1NTgyNTkxMTIsInNjb3BlIjpbXSwiY2xpZW50X2lkIjoiNTVydHVmV0ZNeExTWllEUDI4NTBEMG1xQnNPTVZnNTQiLCJncmFudF9pZCI6IkVOdjlaOVFjYWJNUERpakRqYkprb1hQcWxXUHM3b0o4IiwiYXVkIjoiaHR0cHM6Ly9hdXRvZGVzay5jb20vYXVkL2p3dGV4cDYwIiwianRpIjoiWkdSa3BDWDdjMzB0elNrclJ2a21Wdm93Qm1KcXp2M2lVa0ZNb0NSbW1NalFxWW5CU01LR2tqRzRUb2d0U1IwbiJ9.cfVngdCVkoZInxgYB0qlRjXBZ_e7d6_udSo6jA1MYr0","refresh_token":"BWtwqtcJ3gUkhZlcP0CpjdydtnFYmbdcAH0BqlJI6L","token_type":"Bearer","expires_in":3599}
+

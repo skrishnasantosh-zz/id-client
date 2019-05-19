@@ -1,0 +1,13 @@
+{
+    "urls" : {
+        "oauth1" : {
+            "requestToken" : "https://accounts{0}.autodesk.com/oauth/requesttoken",
+            "authorize" : "https://accounts{0}.autodesk.com/oauth/authorize",
+            "accessToken" : "https://accounts{0}.autodesk.com/oauth/accesstoken"
+        },
+        "oauth2" : {
+            "authorize" : "https://developer{0}.api.autodesk.com/authentication/v1/authorize",
+            "getToken" : "https://developer{0}.api.autodesk.com/authentication/v1/gettoken"
+        }
+    }
+}

@@ -1,0 +1,32 @@
+
+For setting IE10 mode for Native Browser - Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION - 
+    create key pwindows.exe (or pwin64.exe) with the DWORD value "10000" (decimal) - this is IE 10 mode
+
+For selenium, if IE 11 is installed,
+
+For IE 11 only, you will need to set a registry entry on the target computer so that the driver can maintain a connection to the instance of Internet Explorer it creates. For 32-bit Windows installations, the key you must examine in the registry editor is HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet
+  Explorer\Main\FeatureControl\FEATURE_BFCACHE. For 64-bit Windows installations, the key is HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet
+  Explorer\Main\FeatureControl\FEATURE_BFCACHE. Please note that the  FEATURE_BFCACHE subkey may or may not be present, and should be created if it is not present. Important: Inside this key, create a  DWORD value named iexplore.exe with the value of 0.
+
+
+Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_DISABLE_INTERNAL_SECURITY_MANAGER
+and equivalent 32 bit -> set "iexplore" to dword "1"
+
+
+Set Zone protected mode to 0
+I inspected the ADMX files (Group Policy setting definitions) to figure out the structure of these data; the relevant settings are in inetres.admx in \Windows\PolicyDefinitions.
+These settings are stored in HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones. Under Zones is a subkey for each zone, named numerically:
+0 is the Local Machine zone
+1 is the Intranet zone
+2 is the Trusted Sites zone
+3 is the Internet zone
+4 is the Restricted Sites zone
+(There can also be a Lockdown_Zones subkey under Internet Settings that applies - you guessed it - to the locked down version of the corresponding zone.)
+Under each numerically-named key, you can create or set a REG_DWORD value named 2500 to contol whether Protected Mode is enabled for the zone. Setting that value to 0 enables Protected Mode; a setting of 3 disables it.
+So, to enable Protected Mode for the Internet zone, set this entry to 0:
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3\2500
+If you want to read/write the policy version of these settings: The Group Policy settings shown in the question and answer you linked are, like the vast majority of Group Policy options, implemented as Registry entries. Policy entries are stored in HKCU\Software\Policies (for a single user) or HKLM\SOFTWARE\Policies (for the machine). Under Policies, Microsoft\Windows\CurrentVersion\Internet Settings\Zones is exactly as described earlier, but will not allow the user to change the settings. Per-user policy cannot be modified by programs running as that user, unless the user is an administrator.
+
+
+netsh firewall add allowedprogram C:\MyApp\MyApp.exe MyApp ENABLE
+
