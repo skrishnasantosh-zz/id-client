@@ -30,3 +30,8 @@ If you want to read/write the policy version of these settings: The Group Policy
 
 netsh firewall add allowedprogram C:\MyApp\MyApp.exe MyApp ENABLE
 
+Modify Python Source code at requests oauthlib oauth1_session.py - comment out line 318 and 319 in
+         #if not getattr(self._client.client, 'verifier', None):
+            #raise VerifierMissing('No client verifier has been set.')
+
+

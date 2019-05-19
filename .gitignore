@@ -1,2 +1,9 @@
 bin/
-/src/platform/win32.old
+src/platform/win32.old
+src/__pycache__/
+src/build/
+src/test.txt
+src/idclient.log
+src/dist/idclient.log
+src/dist/test.txt
+src/oa2fx.spec

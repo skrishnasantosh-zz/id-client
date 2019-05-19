@@ -1,6 +1,8 @@
 from requests_oauthlib import OAuth2Session
+from requests_oauthlib import OAuth1Session
 import requests
 from requests_oauthlib import OAuth2
+from requests_oauthlib import OAuth1
 import sys, time
 import logging
 import json
@@ -14,9 +16,7 @@ from selenium.webdriver.ie.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC 
-
-
-#from selenium.common.exceptions import TheNameOfTheExceptionClass
+import oauthlib.oauth1.rfc5849.signature as oauth
 
 platformApp = ""
 driver = None
@@ -46,6 +46,7 @@ elif _platform == "win32" or _platform == "win64":
     ieOptions.force_create_process_api = True
     ieOptions.native_events = True
     ieOptions.require_window_focus = True
+    ieOptions.SWITCHES = '--silent'
     
     ieOptions.set_capability("version", "10")
     ieOptions.set_capability("browserName", "internet explorer")
@@ -83,7 +84,7 @@ def getOptions():
     clientKey = ""
     clientSecret = ""
     callback = ""
-    realm = ""
+    realm = None
     auth=""
     tempFile = ""
 
@@ -173,50 +174,120 @@ logger.info("oauth2 authorize url is %s", oauth2AuthorizeUrl)
 logger.info("oauth2 get token url is %s", oauth2GetTokenUrl)
 logger.info("oauth2 callback url is %s", oauth2Callback)
 
-oauth2 = OAuth2Session(clientKey, redirect_uri=oauth2Callback)
+oauth2Session = OAuth2Session(clientKey, redirect_uri=oauth2Callback)
+oauth1Session = OAuth1Session(clientKey, clientSecret)
 
-def oAuth2GetAuthorizeCodeUrl():
-    (authUrl, state) = oauth2.authorization_url(oauth2AuthorizeUrl)
-    logger.info("authorization url is %s", authUrl)
-    
-    driver.get(authUrl)
+token = None
 
-    wait = WebDriverWait(driver, 300).until(EC.url_contains(callback))
+print "\n\n Attempting to get Access Token \n\n"
 
-    codeUrl = driver.current_url
-    driver.quit()
-    
-    print (codeUrl)
-            
-    return codeUrl
+class OAuth2:
+    def getAuthorizeCodeUrl(self):
+        (authUrl, state) = oauth2Session.authorization_url(oauth2AuthorizeUrl)
+        logger.info("authorization url is %s", authUrl)
 
-def oAuth2GetTokenByAuthorizeCode(code, authResponse):
+        driver.get(authUrl)
 
-    post_data = "grant_type=authorization_code&code=" + code + "&redirect_uri=" + callback + "&client_id=" + clientKey + "&client_secret=" + clientSecret
-    response = requests.post(oauth2GetTokenUrl, data=post_data, headers={'Content-Type' : 'application/x-www-form-urlencoded'})
+        wait = WebDriverWait(driver, 300).until(EC.url_contains(callback))
 
-    logger.info("oauth2 get token response - " + response.text)
+        codeUrl = driver.current_url
+        driver.quit()
 
-    print (response.text)
+        print (codeUrl)
+                
+        return codeUrl
 
-    responseJson = json.loads(response.text)
+    def getTokenByAuthorizeCode(self, code, authResponse):
 
-    accessToken = responseJson['access_token']
-    refreshToken = responseJson['refresh_token']
-    tokenType = responseJson['token_type']
-    expiresIn = responseJson['expires_in']
+        post_data = "grant_type=authorization_code&code=" + code + "&redirect_uri=" + callback + "&client_id=" + clientKey + "&client_secret=" + clientSecret
+        response = requests.post(oauth2GetTokenUrl, data=post_data, headers={'Content-Type' : 'application/x-www-form-urlencoded'})
 
-    return (accessToken, refreshToken, tokenType, expiresIn)
+        logger.info("oauth2 get token response - " + response.text)
 
-authorizeUrl = oAuth2GetAuthorizeCodeUrl()
+        print (response.text)
 
-urlComps = urlparse(authorizeUrl)
-queries = parse_qs(urlComps.query)
+        responseJson = json.loads(response.text)
 
-authorizeCode = queries['code'][0]
+        accessToken = responseJson['access_token']
+        refreshToken = responseJson['refresh_token']
+        tokenType = responseJson['token_type']
+        expiresIn = responseJson['expires_in']
 
-print ("Retrieved Token is")
-print ("---------------------------------------------------------------------------")
-token = oAuth2GetTokenByAuthorizeCode(authorizeCode, authorizeUrl)
-print ("---------------------------------------------------------------------------")
+        return (accessToken, refreshToken, tokenType, expiresIn)
+
+class OAuth1:
+    def requestToken(self):
+        requestTokenResponse = oauth1Session.fetch_request_token(oauth1RequestTokenUrl, realm)
+        
+        token = requestTokenResponse.get('oauth_token')
+        secret = requestTokenResponse.get('oauth_token_secret')
+
+        return (token, secret)
+
+    def authorize(self, token):
+        authUrl = oauth1Session.authorization_url(oauth1AuthorizeUrl, token)
+
+        driver.get(authUrl)
+
+        urlPattern = "/OAuth/Allow?k="
+
+        wait = WebDriverWait(driver, 300).until(EC.url_contains(urlPattern))
+
+        codeUrl = driver.current_url
+        driver.quit()
+
+        print (codeUrl)
+
+        return codeUrl
+
+    def accessToken(self):
+        accessTokenResponse = oauth1Session.fetch_access_token(oauth1AccessTokenUrl)
+
+        print (accessTokenResponse)
+        
+        token = accessTokenResponse.get('oauth_token')
+        secret = accessTokenResponse.get('oauth_token_secret')
+        sessionHandle = accessTokenResponse.get('oauth_session_handle')
+        authExpiresIn = accessTokenResponse.get('oauth_authorization_expires_in')
+        tokenExpiresIn = accessTokenResponse.get('oauth_expires_in')
+        userName = accessTokenResponse.get('x_oauth_user_name')
+        userId = accessTokenResponse.get('x_oauth_user_guid')
+        twoFactorEnabled = accessTokenResponse.get('is_twofa_enabled')
+
+        return (token, secret, sessionHandle, authExpiresIn, tokenExpiresIn, userName, userId, twoFactorEnabled)
+
+if (auth == "oauth2"):
+    oAuth2 = OAuth2()
+    authorizeUrl = oAuth2.getAuthorizeCodeUrl()
+
+    urlComps = urlparse(authorizeUrl)
+    queries = parse_qs(urlComps.query)
+
+    authorizeCode = queries['code'][0]
+
+    print ("Retrieved OAuth2 Token is")
+    print ("---------------------------------------------------------------------------")
+    (accessToken, refreshToken, tokenType, expiresIn) = oAuth2.getTokenByAuthorizeCode(authorizeCode, authorizeUrl)
+    f = open(tempFile, "w")
+    f.writelines(["oauth2" + os.linesep, tokenType + os.linesep, accessToken + os.linesep, refreshToken + os.linesep, str(expiresIn) + os.linesep])
+    f.close()
+    print ("---------------------------------------------------------------------------")
+    sys.exit(0)
+
+if (auth == "oauth1"):
+    oAuth1 = OAuth1()
+    (token, secret) = oAuth1.requestToken()
+
+    response = oAuth1.authorize(token)
+
+    (token, secret, sessionHandle, authExpiresIn, tokenExpiresIn, username, userid, isTwoFactor) = oAuth1.accessToken()
+
+    print ("Retrieved OAuth1 Token is")
+    print ("---------------------------------------------------------------------------")     
+
+    f = open(tempFile, "w")
+    f.writelines(["oauth1" + os.linesep, token + os.linesep, secret + os.linesep, sessionHandle + os.linesep, authExpiresIn + os.linesep, tokenExpiresIn + os.linesep, username + os.linesep, userid + os.linesep, isTwoFactor + os.linesep])
+    f.close()
+    print ("---------------------------------------------------------------------------")
+    sys.exit(0)
 
