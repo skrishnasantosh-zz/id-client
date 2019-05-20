@@ -17,6 +17,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC 
 import oauthlib.oauth1.rfc5849.signature as oauth
+from selenium.webdriver.ie.service import Service
 
 platformApp = ""
 driver = None
@@ -46,8 +47,7 @@ elif _platform == "win32" or _platform == "win64":
     ieOptions.force_create_process_api = True
     ieOptions.native_events = True
     ieOptions.require_window_focus = True
-    ieOptions.SWITCHES = '--silent'
-    
+            
     ieOptions.set_capability("version", "10")
     ieOptions.set_capability("browserName", "internet explorer")
     
@@ -178,8 +178,6 @@ oauth2Session = OAuth2Session(clientKey, redirect_uri=oauth2Callback)
 oauth1Session = OAuth1Session(clientKey, clientSecret)
 
 token = None
-
-print "\n\n Attempting to get Access Token \n\n"
 
 class OAuth2:
     def getAuthorizeCodeUrl(self):

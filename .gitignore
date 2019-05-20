@@ -7,3 +7,8 @@ src/idclient.log
 src/dist/idclient.log
 src/dist/test.txt
 src/oa2fx.spec
+src/platform/win32/PWin64/Debug/
+src/platform/win32/PWin64/x64/
+src/platform/win32/PWin64/PWin64.vcxproj.user
+src/platform/win32/PWin64/PWin64.vcxproj.filters
+src/platform/win32/PWin64/.vs/

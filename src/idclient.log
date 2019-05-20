@@ -1,16 +1,17 @@
-[oa2fx][INFO][2019-05-19 12:00:27,613] starting application on windows - 10
-[urllib3.poolmanager][INFO][2019-05-19 12:00:31,205] Redirecting http://127.0.0.1:54972/session -> http://127.0.0.1:54972/session/c20dc317-1da2-439b-b370-cedfb7cd59fb
-[oa2fx][INFO][2019-05-19 12:00:31,217] application root folder would be C:\src\id-client\src
-[oa2fx][INFO][2019-05-19 12:00:31,217] application will use pwin64 for native invocations
-[oa2fx][INFO][2019-05-19 12:00:31,217] loading config.json
-[oa2fx][INFO][2019-05-19 12:00:31,218] configuration is {'urls': {'oauth1': {'requestToken': 'https://accounts{0}.autodesk.com/oauth/requesttoken', 'authorize': 'https://accounts{0}.autodesk.com/oauth/authorize', 'accessToken': 'https://accounts{0}.autodesk.com/oauth/accesstoken'}, 'oauth2': {'authorize': 'https://developer{0}.api.autodesk.com/authentication/v1/authorize', 'getToken': 'https://developer{0}.api.autodesk.com/authentication/v1/gettoken'}}}
-[oa2fx][INFO][2019-05-19 12:00:31,218] commandline args ['oa2fx.py', '-key:mycloud-dev.autodesk.com', '-secret:DevAut0d3sk!', '-callback:https://accounts-dev.autodesk.com', '-environ:dev', '-temp:test.txt', '-auth:oauth1']
-[oa2fx][INFO][2019-05-19 12:00:31,218] setting command line options
-[oa2fx][INFO][2019-05-19 12:00:31,218] environ = dev, auth = oauth1, clientKey = mycloud-dev.autodesk.com, clientSecret = DevAut0d3sk!, callback = https, realm = None
-[oa2fx][INFO][2019-05-19 12:00:31,218] configured environment is dev
-[oa2fx][INFO][2019-05-19 12:00:31,218] oauth1 request token url is https://accounts-dev.autodesk.com/oauth/requesttoken
-[oa2fx][INFO][2019-05-19 12:00:31,218] oauth1 authorize url is https://accounts-dev.autodesk.com/oauth/authorize
-[oa2fx][INFO][2019-05-19 12:00:31,218] oauth1 access token url is https://accounts-dev.autodesk.com/oauth/accesstoken
-[oa2fx][INFO][2019-05-19 12:00:31,218] oauth2 authorize url is https://developer-dev.api.autodesk.com/authentication/v1/authorize
-[oa2fx][INFO][2019-05-19 12:00:31,218] oauth2 get token url is https://developer-dev.api.autodesk.com/authentication/v1/gettoken
-[oa2fx][INFO][2019-05-19 12:00:31,218] oauth2 callback url is https://accounts.autodesk.com/Health
+[oa2fx][INFO][2019-05-20 03:29:20,896] starting application on windows - 10
+[urllib3.poolmanager][INFO][2019-05-20 03:29:24,975] Redirecting http://127.0.0.1:50078/session -> http://127.0.0.1:50078/session/dbf0d9f4-282b-45a2-b942-81a8ca5531d1
+[oa2fx][INFO][2019-05-20 03:29:24,988] application root folder would be C:\src\id-client\src
+[oa2fx][INFO][2019-05-20 03:29:24,988] application will use pwin64 for native invocations
+[oa2fx][INFO][2019-05-20 03:29:24,988] loading config.json
+[oa2fx][INFO][2019-05-20 03:29:24,991] configuration is {'urls': {'oauth1': {'requestToken': 'https://accounts{0}.autodesk.com/oauth/requesttoken', 'authorize': 'https://accounts{0}.autodesk.com/oauth/authorize', 'accessToken': 'https://accounts{0}.autodesk.com/oauth/accesstoken'}, 'oauth2': {'authorize': 'https://developer{0}.api.autodesk.com/authentication/v1/authorize', 'getToken': 'https://developer{0}.api.autodesk.com/authentication/v1/gettoken'}}}
+[oa2fx][INFO][2019-05-20 03:29:24,991] commandline args ['oa2fx.py', '-key:55rtufWFMxLSZYDP2850D0mqBsOMVg54', '-secret:4ad5SatSeAjfA2GB', '-callback:https://accounts.autodesk.com\\Health', '-environ:prd', '-temp:test.txt']
+[oa2fx][INFO][2019-05-20 03:29:24,992] setting command line options
+[oa2fx][INFO][2019-05-20 03:29:24,992] environ = prd, auth = oauth2, clientKey = 55rtufWFMxLSZYDP2850D0mqBsOMVg54, clientSecret = 4ad5SatSeAjfA2GB, callback = https, realm = None
+[oa2fx][INFO][2019-05-20 03:29:24,992] configured environment is prd
+[oa2fx][INFO][2019-05-20 03:29:24,992] oauth1 request token url is https://accounts.autodesk.com/oauth/requesttoken
+[oa2fx][INFO][2019-05-20 03:29:24,992] oauth1 authorize url is https://accounts.autodesk.com/oauth/authorize
+[oa2fx][INFO][2019-05-20 03:29:24,992] oauth1 access token url is https://accounts.autodesk.com/oauth/accesstoken
+[oa2fx][INFO][2019-05-20 03:29:24,992] oauth2 authorize url is https://developer.api.autodesk.com/authentication/v1/authorize
+[oa2fx][INFO][2019-05-20 03:29:24,992] oauth2 get token url is https://developer.api.autodesk.com/authentication/v1/gettoken
+[oa2fx][INFO][2019-05-20 03:29:24,992] oauth2 callback url is https://accounts.autodesk.com/Health
+[oa2fx][INFO][2019-05-20 03:29:24,992] authorization url is https://developer.api.autodesk.com/authentication/v1/authorize?response_type=code&client_id=55rtufWFMxLSZYDP2850D0mqBsOMVg54&redirect_uri=https%3A%2F%2Faccounts.autodesk.com%2FHealth&state=U6WfVDucbPGqHMJzpjYz8JAHvJB1UA
